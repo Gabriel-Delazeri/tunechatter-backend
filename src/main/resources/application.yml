@@ -18,3 +18,4 @@ spotify:
       secret: 59113bf869104298956ccd247ed390db
     scopes: user-read-private user-read-email
     redirect-uri: http://0.0.0.0:8080/callback
+    base-url: https://api.spotify.com/v1
