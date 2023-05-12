@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bookshelf?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/musicboxd?useTimezone=true&serverTimezone=UTC
     username: root
     password:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -17,5 +17,5 @@ spotify:
       id: 772c1fcea85548058c25ec2886d0c698
       secret: 59113bf869104298956ccd247ed390db
     scopes: user-read-private user-read-email
-    redirect-uri: http://0.0.0.0:8080/callback
+    redirect-uri: http://0.0.0.0:8080/spotify/callback
     base-url: https://api.spotify.com/v1
