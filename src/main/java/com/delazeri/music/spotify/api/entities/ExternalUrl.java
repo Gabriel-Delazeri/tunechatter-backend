@@ -1,20 +1,22 @@
 package com.delazeri.music.spotify.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExternalUrl {
 
-    private String spotify;
+    @JsonProperty(value = "spotify")
+    private String spotifyUrl;
 
     public ExternalUrl() {
     }
 
-    public String getSpotify() {
-        return spotify;
+    public String getSpotifyUrl() {
+        return spotifyUrl;
     }
 
-    public void setSpotify(String spotify) {
-        this.spotify = spotify;
+    public void setSpotifyUrl(String spotifyUrl) {
+        this.spotifyUrl = spotifyUrl;
     }
 }

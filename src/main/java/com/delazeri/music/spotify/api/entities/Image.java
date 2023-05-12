@@ -7,6 +7,9 @@ public class Image {
 
     private String url;
 
+    public Image(){
+    }
+
     public String getUrl() {
         return url;
     }
