@@ -25,6 +25,7 @@ public class Artist implements Serializable {
     @JsonIgnore
     private Set<Album> albums;
     @ManyToMany(mappedBy = "artists")
+    @JsonIgnore
     private Set<Track> tracks;
 
     public Artist() {
