@@ -25,6 +25,8 @@ public class Album implements Serializable {
 
     private String name;
 
+    private String slug;
+
     private int totalTracks;
 
     private String externalUrl;
@@ -58,10 +60,11 @@ public class Album implements Serializable {
         this.tracks = new HashSet<>();
     }
 
-    public Album(UUID id, String spotifyId, String name, int totalTracks, String externalUrl, LocalDate releaseDate, String label, String imageUrl, HashSet<Copyright> copyrights, Set<Artist> artists, Set<Track> tracks) {
+    public Album(UUID id, String spotifyId, String name, String slug, int totalTracks, String externalUrl, LocalDate releaseDate, String label, String imageUrl, HashSet<Copyright> copyrights, Set<Artist> artists, Set<Track> tracks) {
         this.id = id;
         this.spotifyId = spotifyId;
         this.name = name;
+        this.slug = slug;
         this.totalTracks = totalTracks;
         this.externalUrl = externalUrl;
         this.releaseDate = releaseDate;
@@ -70,6 +73,13 @@ public class Album implements Serializable {
         this.copyrights = copyrights;
         this.artists = artists;
         this.tracks = tracks;
+    }
+
+    public Album(UUID id, String spotifyId, String name, String slug) {
+        this.id = id;
+        this.spotifyId = spotifyId;
+        this.name = name;
+        this.slug = slug;
     }
 
     public UUID getId() {
@@ -94,6 +104,14 @@ public class Album implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public int getTotalTracks() {

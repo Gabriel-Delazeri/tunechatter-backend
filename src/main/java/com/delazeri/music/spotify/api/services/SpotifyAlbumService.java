@@ -12,6 +12,7 @@ import com.delazeri.music.utils.ModelMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.slugify.Slugify;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,8 @@ public class SpotifyAlbumService {
     private String baseUrl;
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    private final static Slugify slugify = Slugify.builder().build();
 
     private static HttpEntity<String> setHeaders(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
@@ -86,6 +89,7 @@ public class SpotifyAlbumService {
         BeanUtils.copyProperties(spotifyAlbum, album);
         album.setExternalUrl(spotifyAlbum.getExternalUrl().getSpotifyUrl());
         album.setImageUrl(spotifyAlbum.getImages().get(0).getUrl());
+        album.setSlug(slugify.slugify(album.getName()));
         Set<Copyright> copyrights = new HashSet<>();
 
         spotifyAlbum.getCopyrights().forEach(
@@ -104,7 +108,7 @@ public class SpotifyAlbumService {
                         .add(existingArtist.get());
             } else {
                 album.getArtists()
-                        .add(new Artist(artist.getSpotifyId(), artist.getExternalUrl().getSpotifyUrl(), artist.getName()));
+                        .add(new Artist(artist.getSpotifyId(), artist.getExternalUrl().getSpotifyUrl(), artist.getName(), slugify.slugify(artist.getName())));
             }
         });
 
@@ -128,7 +132,7 @@ public class SpotifyAlbumService {
                     Optional<Artist> existingArtist = artistRepository.findBySpotifyId(artist.getSpotifyId());
                     existingArtist.ifPresent(artists::add);
                 } else {
-                    artists.add(new Artist(artist.getSpotifyId(), artist.getExternalUrl().getSpotifyUrl(), artist.getName()));
+                    artists.add(new Artist(artist.getSpotifyId(), artist.getExternalUrl().getSpotifyUrl(), artist.getName(), slugify.slugify(artist.getName())));
                     existingArtistIds.add(artist.getSpotifyId());
                 }
             });
@@ -136,6 +140,8 @@ public class SpotifyAlbumService {
             tracks.add(new Track(
                     track.getSpotifyId(),
                     track.getName(),
+                    track.getTrackNumber(),
+                    slugify.slugify(track.getName()),
                     artists,
                     track.getDurationMs(),
                     track.getExternalUrl().getSpotifyUrl(),

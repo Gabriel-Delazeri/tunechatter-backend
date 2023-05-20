@@ -26,6 +26,10 @@ public class Track implements Serializable {
 
     private String name;
 
+    private Integer number;
+
+    private String slug;
+
     @ManyToMany
     @JoinTable(
             name = "track_artist",
@@ -49,9 +53,11 @@ public class Track implements Serializable {
     public Track() {
     }
 
-    public Track(String spotifyId, String name, Set<Artist> artists, Long durationMs, String externalUrl, String imageUrl, Album album) {
+    public Track(String spotifyId, String name, Integer number, String slug, Set<Artist> artists, Long durationMs, String externalUrl, String imageUrl, Album album) {
         this.spotifyId = spotifyId;
         this.name = name;
+        this.number = number;
+        this.slug = slug;
         this.artists = artists;
         this.durationMs = durationMs;
         this.externalUrl = externalUrl;
@@ -59,10 +65,12 @@ public class Track implements Serializable {
         this.album = album;
     }
 
-    public Track(UUID id, String spotifyId, String name, Set<Artist> artists, Long durationMs, String externalUrl, String imageUrl, Album album) {
+    public Track(UUID id, String spotifyId, String name, Integer number, String slug, Set<Artist> artists, Long durationMs, String externalUrl, String imageUrl, Album album) {
         this.id = id;
         this.spotifyId = spotifyId;
         this.name = name;
+        this.number = number;
+        this.slug = slug;
         this.artists = artists;
         this.durationMs = durationMs;
         this.externalUrl = externalUrl;
@@ -92,6 +100,22 @@ public class Track implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Set<Artist> getArtists() {

@@ -13,6 +13,9 @@ public class Item {
 
     private String name;
 
+    @JsonProperty(value = "track_number")
+    private Integer trackNumber;
+
     private List<Artist> artists;
 
     @JsonProperty(value = "duration_ms")
@@ -40,6 +43,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setTrackNumber(Integer trackNumber) {
+        this.trackNumber = trackNumber;
     }
 
     public List<Artist> getArtists() {
