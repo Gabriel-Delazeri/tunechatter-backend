@@ -1,8 +1,10 @@
 package com.delazeri.music.albums.services;
 
 import com.delazeri.music.albums.dtos.AlbumDTO;
-import com.delazeri.music.albums.entities.Album;
+import com.delazeri.music.albums.dtos.SimpleAlbumDTO;
 import com.delazeri.music.albums.repositories.AlbumRepository;
+import com.delazeri.music.albums.utils.AlbumMapper;
+import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,12 @@ public class AlbumService {
     @Autowired
     AlbumRepository repository;
 
-    public List<AlbumDTO> findAll() {
-        List<AlbumDTO> albums = repository.findAllAlbums();
+    @Autowired
+    AlbumMapper mapper;
+
+    public List<SimpleAlbumDTO> findAll() {
+        List<SimpleAlbumDTO> albums = repository.findAllAlbums();
+
         albums.forEach(
                 albumDTO -> {albumDTO.setArtists(repository.findAlbumArtists(albumDTO.getId()));}
         );
@@ -23,11 +29,11 @@ public class AlbumService {
         return albums;
     }
 
-    public Album findById(UUID id) {
-        return repository.findById(id).orElseThrow();
+    public AlbumDTO findById(UUID id) {
+        return mapper.entityToDto(repository.findById(id).orElseThrow());
     }
 
-    public Album findBySlug(String slug) {
-        return repository.findBySlug(slug).orElseThrow();
+    public AlbumDTO findBySlug(String slug) {
+        return mapper.entityToDto(repository.findBySlug(slug).orElseThrow());
     }
 }
