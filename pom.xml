@@ -52,6 +52,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.slugify/slugify -->
+        <dependency>
+            <groupId>com.github.slugify</groupId>
+            <artifactId>slugify</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.mysql</groupId>

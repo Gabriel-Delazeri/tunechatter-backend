@@ -21,6 +21,7 @@ public class Artist implements Serializable {
     private String spotifyId;
     private String externalUrl;
     private String name;
+    private String slug;
     @ManyToMany(mappedBy = "artists")
     @JsonIgnore
     private Set<Album> albums;
@@ -32,19 +33,26 @@ public class Artist implements Serializable {
         this.albums = new HashSet<>();
     }
 
-    public Artist(UUID id, String spotifyId, String externalUrl, String name, Set<Track> tracks) {
+    public Artist(UUID id, String spotifyId, String externalUrl, String name, String slug, Set<Track> tracks) {
         this.id = id;
         this.spotifyId = spotifyId;
         this.externalUrl = externalUrl;
         this.name = name;
+        this.slug = slug;
         this.albums = new HashSet<>();
     }
 
-    public Artist(String spotifyId, String externalUrl, String name) {
+    public Artist(String spotifyId, String externalUrl, String name, String slug) {
         this.spotifyId = spotifyId;
         this.externalUrl = externalUrl;
         this.name = name;
+        this.slug = slug;
         this.albums = new HashSet<>();
+    }
+
+    public Artist(UUID id, String name) {
+        this.id = id;
+        this.name= name;
     }
 
     public UUID getId() {
@@ -77,6 +85,14 @@ public class Artist implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Set<Album> getAlbums() {
