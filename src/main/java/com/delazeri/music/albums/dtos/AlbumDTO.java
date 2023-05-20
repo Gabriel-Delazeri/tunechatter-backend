@@ -1,74 +1,52 @@
 package com.delazeri.music.albums.dtos;
 
-import com.delazeri.music.artists.entities.Artist;
+import com.delazeri.music.artists.dtos.ArtistDTO;
+import com.delazeri.music.tracks.dtos.TrackDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-public class AlbumDTO {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AlbumDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private UUID id;
+
+    @JsonProperty(value = "spotify_id")
     private String spotifyId;
+
     private String name;
+
     private String slug;
+
+    @JsonProperty(value = "total_tracks")
+    private int totalTracks;
+
+    @JsonProperty(value = "external_url")
+    private String externalUrl;
+
+    @JsonProperty(value = "release_date")
+    private LocalDate releaseDate;
+
+    private String label;
+
+    @JsonProperty(value = "image_url")
     private String imageUrl;
-    private Set<Artist> artists;
 
-    public AlbumDTO(UUID id, String spotifyId, String name, String slug, String imageUrl) {
-        this.id = id;
-        this.spotifyId = spotifyId;
-        this.name = name;
-        this.slug = slug;
-        this.imageUrl = imageUrl;
-    }
+    private Set<CopyrightDTO> copyrights;
 
-    public UUID getId() {
-        return id;
-    }
+    private Set<ArtistDTO> artists;
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getSpotifyId() {
-        return spotifyId;
-    }
-
-    public void setSpotifyId(String spotifyId) {
-        this.spotifyId = spotifyId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Set<Artist> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(Set<Artist> artists) {
-        this.artists = artists;
-    }
+    private Set<TrackDTO> tracks;
 }
-
-
