@@ -1,4 +1,4 @@
-package com.delazeri.music.utils;
+package com.delazeri.music.utils.mapper;
 
 import org.springframework.stereotype.Component;
 
