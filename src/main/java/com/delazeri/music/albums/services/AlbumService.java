@@ -4,6 +4,8 @@ import com.delazeri.music.albums.dtos.AlbumDTO;
 import com.delazeri.music.albums.dtos.SimpleAlbumDTO;
 import com.delazeri.music.albums.repositories.AlbumRepository;
 import com.delazeri.music.albums.utils.AlbumMapper;
+import com.delazeri.music.artists.dtos.ArtistDTO;
+import com.delazeri.music.artists.entities.Artist;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,11 @@ public class AlbumService {
         List<SimpleAlbumDTO> albums = repository.findAllAlbums();
 
         albums.forEach(
-                albumDTO -> {albumDTO.setArtists(repository.findAlbumArtists(albumDTO.getId()));}
+                albumDTO -> {
+                    Set<Artist> artists = repository.findAlbumArtists(albumDTO.getId());
+
+                    albumDTO.setArtists(new HashSet<>(ModelMapper.parseListObjects(Arrays.asList(artists.toArray()), ArtistDTO.class)));
+                }
         );
 
         return albums;
