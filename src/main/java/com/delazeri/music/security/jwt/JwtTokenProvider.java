@@ -39,6 +39,8 @@ public class JwtTokenProvider {
     @Autowired
     private UserRepository repository;
 
+    @Autowired JwtUtil jwtUtil;
+
     Algorithm algorithm = null;
 
     @PostConstruct
@@ -95,17 +97,10 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        DecodedJWT decodedJWT = decodedToken(token);
+        DecodedJWT decodedJWT = jwtUtil.decodedToken(token);
         UserDetails userDetails = this.userDetailsService
                 .loadUserByUsername(decodedJWT.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
-
-    private DecodedJWT decodedToken(String token) {
-        Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
-        JWTVerifier verifier = JWT.require(alg).build();
-        DecodedJWT decodedJWT = verifier.verify(token);
-        return decodedJWT;
     }
 
     public String resolveToken(HttpServletRequest req) {
@@ -118,7 +113,7 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
-        DecodedJWT decodedJWT = decodedToken(token);
+        DecodedJWT decodedJWT = jwtUtil.decodedToken(token);
         try {
             if (decodedJWT.getExpiresAt().before(new Date())) {
                 return false;
