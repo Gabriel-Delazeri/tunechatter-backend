@@ -5,7 +5,7 @@ import com.delazeri.music.security.dtos.SignUpCredentialsDTO;
 import com.delazeri.music.security.dtos.TokenDTO;
 import com.delazeri.music.users.entities.User;
 import com.delazeri.music.security.jwt.JwtTokenProvider;
-import com.delazeri.music.users.dtos.UserRepository;
+import com.delazeri.music.users.repositories.UserRepository;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

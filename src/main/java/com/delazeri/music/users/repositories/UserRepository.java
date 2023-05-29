@@ -1,4 +1,4 @@
-package com.delazeri.music.users.dtos;
+package com.delazeri.music.users.repositories;
 
 import com.delazeri.music.users.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

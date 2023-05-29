@@ -7,7 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delazeri.music.exceptions.custom.InvalidJwtAuthenticationException;
 import com.delazeri.music.security.dtos.TokenDTO;
 import com.delazeri.music.users.dtos.UserDTO;
-import com.delazeri.music.users.dtos.UserRepository;
+import com.delazeri.music.users.repositories.UserRepository;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
