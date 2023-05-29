@@ -1,4 +1,4 @@
-package com.delazeri.music.security.dtos;
+package com.delazeri.music.users.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

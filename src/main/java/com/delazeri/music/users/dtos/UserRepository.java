@@ -1,6 +1,6 @@
-package com.delazeri.music.security.repositories;
+package com.delazeri.music.users.dtos;
 
-import com.delazeri.music.security.entities.User;
+import com.delazeri.music.users.dtos.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

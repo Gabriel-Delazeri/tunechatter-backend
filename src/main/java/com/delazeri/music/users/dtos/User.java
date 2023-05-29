@@ -1,5 +1,6 @@
-package com.delazeri.music.security.entities;
+package com.delazeri.music.users.dtos;
 
+import com.delazeri.music.security.entities.Permission;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
