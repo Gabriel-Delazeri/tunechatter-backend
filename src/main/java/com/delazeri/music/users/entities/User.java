@@ -1,4 +1,4 @@
-package com.delazeri.music.users.dtos;
+package com.delazeri.music.users.entities;
 
 import com.delazeri.music.security.entities.Permission;
 import jakarta.persistence.*;

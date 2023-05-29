@@ -1,6 +1,6 @@
 package com.delazeri.music.users.services;
 
-import com.delazeri.music.users.dtos.User;
+import com.delazeri.music.users.entities.User;
 import com.delazeri.music.users.dtos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
