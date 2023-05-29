@@ -35,6 +35,9 @@ public class User implements UserDetails, Serializable{
     @Column
     private String password;
 
+    @Column
+    private String imageUrl;
+
     @Column(name = "account_non_expired")
     private Boolean accountNonExpired;
 
@@ -143,6 +146,14 @@ public class User implements UserDetails, Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Boolean getAccountNonExpired() {

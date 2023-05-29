@@ -29,4 +29,7 @@ public class UserDTO implements Serializable {
     private String lastName;
 
     private String email;
+
+    @JsonProperty(value = "image_url")
+    private String imageUrl;
 }
