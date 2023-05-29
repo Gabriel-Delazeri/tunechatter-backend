@@ -6,6 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delazeri.music.exceptions.custom.InvalidJwtAuthenticationException;
 import com.delazeri.music.security.dtos.TokenDTO;
+import com.delazeri.music.security.dtos.UserDTO;
+import com.delazeri.music.security.repositories.UserRepository;
+import com.delazeri.music.utils.mapper.ModelMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private UserRepository repository;
+
     Algorithm algorithm = null;
 
     @PostConstruct
@@ -47,7 +53,9 @@ public class JwtTokenProvider {
         var accessToken = getAccessToken(username, roles, now, validity);
         var refreshToken = getRefreshToken(username, roles, now);
 
-        return new TokenDTO(username, true, now, validity, accessToken, refreshToken);
+        UserDTO user = ModelMapper.parseObject(repository.findByUsername(username), UserDTO.class);
+
+        return new TokenDTO(user, true, now, validity, accessToken, refreshToken);
     }
 
 

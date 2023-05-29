@@ -54,9 +54,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
-                                        "/albums/**",
-                                        "/auth/signin",
-                                        "/auth/refresh/**"
+                                        "/auth/**"
                                 ).permitAll()
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/users").denyAll()

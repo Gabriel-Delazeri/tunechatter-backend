@@ -1,7 +1,10 @@
 package com.delazeri.music.security.controllers;
 
 import com.delazeri.music.security.dtos.AccountCredentialsDTO;
+import com.delazeri.music.security.dtos.SignUpCredentialsDTO;
+import com.delazeri.music.security.dtos.TokenDTO;
 import com.delazeri.music.security.services.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,11 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
+
+    @PostMapping(value = "/signup")
+    public ResponseEntity<TokenDTO> signup(@RequestBody @Valid SignUpCredentialsDTO signUpCredentialsDTO) {
+        return ResponseEntity.ok().body(authService.signup(signUpCredentialsDTO));
+    }
 
     @SuppressWarnings("rawtypes")
     @PostMapping(value = "/signin")

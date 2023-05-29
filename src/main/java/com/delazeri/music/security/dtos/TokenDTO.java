@@ -1,5 +1,7 @@
 package com.delazeri.music.security.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -8,22 +10,24 @@ public class TokenDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String username;
+    private UserDTO user;
     private Boolean authenticated;
     private Date created;
     private Date expiration;
+    @JsonProperty(value = "access_token")
     private String accessToken;
+    @JsonProperty(value = "refresh_token")
     private String refreshToken;
 
     public TokenDTO(
-            String username,
+            UserDTO user,
             Boolean authenticated,
             Date created,
             Date expiration,
             String accessToken,
             String refreshToken
     ) {
-        this.username = username;
+        this.user = user;
         this.authenticated = authenticated;
         this.created = created;
         this.expiration = expiration;
@@ -34,12 +38,12 @@ public class TokenDTO implements Serializable {
     public TokenDTO() {
     }
 
-    public String getUsername() {
-        return username;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public Boolean getAuthenticated() {
@@ -87,11 +91,11 @@ public class TokenDTO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TokenDTO tokenDTO = (TokenDTO) o;
-        return Objects.equals(username, tokenDTO.username) && Objects.equals(authenticated, tokenDTO.authenticated) && Objects.equals(created, tokenDTO.created) && Objects.equals(expiration, tokenDTO.expiration) && Objects.equals(accessToken, tokenDTO.accessToken) && Objects.equals(refreshToken, tokenDTO.refreshToken);
+        return Objects.equals(user, tokenDTO.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, authenticated, created, expiration, accessToken, refreshToken);
+        return Objects.hash(user);
     }
 }
