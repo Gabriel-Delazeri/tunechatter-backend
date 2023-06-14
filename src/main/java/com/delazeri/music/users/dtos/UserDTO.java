@@ -1,4 +1,4 @@
-package com.delazeri.music.security.dtos;
+package com.delazeri.music.users.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -29,4 +29,7 @@ public class UserDTO implements Serializable {
     private String lastName;
 
     private String email;
+
+    @JsonProperty(value = "image_url")
+    private String imageUrl;
 }

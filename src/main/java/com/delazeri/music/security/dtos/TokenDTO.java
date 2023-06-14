@@ -1,5 +1,6 @@
 package com.delazeri.music.security.dtos;
 
+import com.delazeri.music.users.dtos.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;

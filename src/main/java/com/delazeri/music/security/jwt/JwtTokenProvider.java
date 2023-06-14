@@ -6,8 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delazeri.music.exceptions.custom.InvalidJwtAuthenticationException;
 import com.delazeri.music.security.dtos.TokenDTO;
-import com.delazeri.music.security.dtos.UserDTO;
-import com.delazeri.music.security.repositories.UserRepository;
+import com.delazeri.music.users.dtos.UserDTO;
+import com.delazeri.music.users.repositories.UserRepository;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +38,8 @@ public class JwtTokenProvider {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired JwtUtil jwtUtil;
 
     Algorithm algorithm = null;
 
@@ -95,17 +97,10 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        DecodedJWT decodedJWT = decodedToken(token);
+        DecodedJWT decodedJWT = jwtUtil.decodedToken(token);
         UserDetails userDetails = this.userDetailsService
                 .loadUserByUsername(decodedJWT.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
-
-    private DecodedJWT decodedToken(String token) {
-        Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
-        JWTVerifier verifier = JWT.require(alg).build();
-        DecodedJWT decodedJWT = verifier.verify(token);
-        return decodedJWT;
     }
 
     public String resolveToken(HttpServletRequest req) {
@@ -118,7 +113,7 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
-        DecodedJWT decodedJWT = decodedToken(token);
+        DecodedJWT decodedJWT = jwtUtil.decodedToken(token);
         try {
             if (decodedJWT.getExpiresAt().before(new Date())) {
                 return false;

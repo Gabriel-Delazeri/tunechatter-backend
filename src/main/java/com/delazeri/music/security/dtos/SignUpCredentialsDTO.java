@@ -24,4 +24,5 @@ public class SignUpCredentialsDTO {
     private String email;
     @NotBlank
     private String password;
+    private String imageUrl;
 }

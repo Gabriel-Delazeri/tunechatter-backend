@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
-    @Query("SELECT new com.delazeri.music.albums.dtos.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl) FROM Album a order by a.name DESC ")
+    @Query("SELECT new com.delazeri.music.albums.dtos.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl, a.releaseDate) FROM Album a order by a.name DESC ")
     List<SimpleAlbumDTO> findAllAlbums();
 
     @Query("SELECT a.artists FROM Album a WHERE a.id = :albumId")
