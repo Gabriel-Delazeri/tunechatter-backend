@@ -22,6 +22,9 @@ public class JwtUtil {
     }
 
     public DecodedJWT decodedToken(String token) {
+        if (token.contains("Bearer ")) token =
+                token.substring("Bearer ".length());
+
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier verifier = JWT.require(alg).build();
         return verifier.verify(token);
