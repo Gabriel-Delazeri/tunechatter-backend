@@ -17,6 +17,7 @@ public class ReviewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private String albumID;
+    private UUID albumID;
+    private UUID userID;
     private String comment;
 }

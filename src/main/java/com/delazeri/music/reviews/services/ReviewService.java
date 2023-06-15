@@ -11,6 +11,7 @@ import com.delazeri.music.reviews.repositories.ReviewRepository;
 import com.delazeri.music.security.jwt.JwtUtil;
 import com.delazeri.music.users.entities.User;
 import com.delazeri.music.users.services.UserService;
+import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class ReviewService {
         DecodedJWT decodedToken = jwtUtil.decodedToken(token);
 
         User user = userService.findUserByUsername(decodedToken.getSubject());
-        Album album = albumMapper.dtoToEntity(albumService.findById(UUID.fromString(reviewDTO.getAlbumID())));
+        Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.getAlbumID()));
 
         userAlreadyReviewedThisAlbum(album, user);
 
@@ -47,9 +48,7 @@ public class ReviewService {
         review.setAlbum(album);
         review.setUser(user);
         review.setComment(reviewDTO.getComment());
-        repository.save(review);
-
-        return reviewDTO;
+        return ModelMapper.parseObject(repository.save(review), ReviewDTO.class);
     }
 
     public void userAlreadyReviewedThisAlbum(Album album, User user) {
@@ -58,5 +57,11 @@ public class ReviewService {
         if (review != null) {
             throw new UserAlreadyReviewedThisAlbumException("You already reviewed this album");
         }
+    }
+
+    public List<ReviewDTO> findReviewsByAlbum(String albumId) {
+        Album album = albumMapper.dtoToEntity(albumService.findById(UUID.fromString(albumId)));
+
+        return ModelMapper.parseListObjects(repository.findByAlbum(album), ReviewDTO.class);
     }
 }
