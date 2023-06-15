@@ -14,6 +14,7 @@ import com.delazeri.music.users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -52,7 +53,7 @@ public class ReviewService {
     }
 
     public void userAlreadyReviewedThisAlbum(Album album, User user) {
-        Review review = repository.findByAlbumAndUser(album);
+        Review review = repository.findByAlbumAndUser(album, user);
 
         if (review != null) {
             throw new UserAlreadyReviewedThisAlbumException("You already reviewed this album");
