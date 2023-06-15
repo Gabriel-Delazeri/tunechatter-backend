@@ -40,7 +40,7 @@ public class ReviewService {
         DecodedJWT decodedToken = jwtUtil.decodedToken(token);
 
         User user = userService.findUserByUsername(decodedToken.getSubject());
-        Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.getAlbumID()));
+        Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.getAlbum().getId()));
 
         userAlreadyReviewedThisAlbum(album, user);
 
