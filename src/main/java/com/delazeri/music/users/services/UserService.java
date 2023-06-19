@@ -31,6 +31,16 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public User findUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findByUsername(username);
+
+        if (user != null) {
+            return user;
+        } else {
+            throw new UsernameNotFoundException("Username " + username + " not found");
+        }
+    }
+
     public UserDTO getAuthenticatedUserData(String token) {
         String username = jwtUtil.decodedToken(token.substring(7)).getSubject();
 
