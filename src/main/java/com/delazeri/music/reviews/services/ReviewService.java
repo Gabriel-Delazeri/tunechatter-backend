@@ -44,10 +44,10 @@ public class ReviewService {
 
         userAlreadyReviewedThisAlbum(album, user);
 
-        Review review = new Review();
+        Review review = ModelMapper.parseObject(reviewDTO, Review.class);
         review.setAlbum(album);
         review.setUser(user);
-        review.setComment(reviewDTO.getComment());
+
         return ModelMapper.parseObject(repository.save(review), ReviewDTO.class);
     }
 

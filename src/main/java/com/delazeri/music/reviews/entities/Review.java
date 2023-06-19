@@ -38,4 +38,6 @@ public class Review implements Serializable {
 
     @OneToMany(mappedBy = "review")
     private List<Like> likes;
+
+    private double rating;
 }

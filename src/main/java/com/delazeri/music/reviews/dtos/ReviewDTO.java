@@ -22,4 +22,5 @@ public class ReviewDTO implements Serializable {
     private AlbumSummaryDTO album;
     private UserSummaryDTO user;
     private String comment;
+    private double rating;
 }
