@@ -40,6 +40,9 @@ public class Review implements Serializable {
     @OneToMany(mappedBy = "review")
     private List<Like> likes;
 
+    @Column(name = "likes")
+    private int likeCount;
+
     @Column(name = "posted_at")
     private LocalDateTime postedAt;
 
