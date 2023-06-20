@@ -15,6 +15,7 @@ import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +48,7 @@ public class ReviewService {
         Review review = ModelMapper.parseObject(reviewDTO, Review.class);
         review.setAlbum(album);
         review.setUser(user);
+        review.setPostedAt(LocalDateTime.now());
 
         return ModelMapper.parseObject(repository.save(review), ReviewDTO.class);
     }
@@ -63,5 +65,9 @@ public class ReviewService {
         Album album = albumMapper.dtoToEntity(albumService.findById(UUID.fromString(albumId)));
 
         return ModelMapper.parseListObjects(repository.findByAlbum(album), ReviewDTO.class);
+    }
+
+    public List<ReviewDTO> getPopularReviews() {
+        return ModelMapper.parseListObjects(repository.findTopOrderByLikesAsc(), ReviewDTO.class);
     }
 }

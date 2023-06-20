@@ -24,4 +24,9 @@ public class ReviewController {
     public ResponseEntity<ReviewDTO> postReview(@RequestBody ReviewDTO review, @RequestHeader(value = "Authorization") String token) {
         return ResponseEntity.ok().body(service.postReview(review, token));
     }
+
+    @GetMapping(value = "/popular")
+    public ResponseEntity<List<ReviewDTO>> getPopularReviews() {
+        return ResponseEntity.ok().body(service.getPopularReviews());
+    }
 }

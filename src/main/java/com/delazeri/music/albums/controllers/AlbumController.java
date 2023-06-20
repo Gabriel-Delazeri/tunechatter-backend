@@ -4,10 +4,11 @@ import com.delazeri.music.albums.dtos.AlbumDTO;
 import com.delazeri.music.albums.dtos.SimpleAlbumDTO;
 import com.delazeri.music.albums.services.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +19,8 @@ public class AlbumController {
     AlbumService service;
 
     @GetMapping
-    public ResponseEntity<List<SimpleAlbumDTO>> findAll() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<Page<SimpleAlbumDTO>> findAll(Pageable page) {
+        return ResponseEntity.ok().body(service.findAll(page));
     }
 
     @GetMapping("by-id/{id}")

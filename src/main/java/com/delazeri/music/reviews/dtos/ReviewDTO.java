@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -23,4 +24,6 @@ public class ReviewDTO implements Serializable {
     private UserSummaryDTO user;
     private String comment;
     private double rating;
+    private LocalDateTime postedAt;
+    private int likeCount;
 }
