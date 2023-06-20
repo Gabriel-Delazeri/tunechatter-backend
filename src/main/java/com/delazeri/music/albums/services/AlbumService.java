@@ -8,6 +8,8 @@ import com.delazeri.music.artists.dtos.ArtistDTO;
 import com.delazeri.music.artists.entities.Artist;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,8 +23,8 @@ public class AlbumService {
     @Autowired
     AlbumMapper mapper;
 
-    public List<SimpleAlbumDTO> findAll() {
-        List<SimpleAlbumDTO> albums = repository.findAllAlbums();
+    public Page<SimpleAlbumDTO> findAll(Pageable page) {
+        Page<SimpleAlbumDTO> albums = repository.findAllAlbums(page);
 
         albums.forEach(
                 albumDTO -> {
