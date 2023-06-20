@@ -19,4 +19,9 @@ public class LikeController {
     public ResponseEntity<ReviewDTO> postLike(@RequestHeader("Authorization") String authorizationToken, @PathVariable UUID reviewId) {
         return ResponseEntity.ok().body(service.postLike(authorizationToken, reviewId));
     }
+
+    @PostMapping(value = "{reviewId}/unlike")
+    public ResponseEntity<ReviewDTO> unlike(@RequestHeader("Authorization") String authorizationToken, @PathVariable UUID reviewId) {
+        return ResponseEntity.ok().body(service.unlike(authorizationToken, reviewId));
+    }
 }
