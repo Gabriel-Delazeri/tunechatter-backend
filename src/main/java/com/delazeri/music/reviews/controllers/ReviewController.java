@@ -3,6 +3,8 @@ package com.delazeri.music.reviews.controllers;
 import com.delazeri.music.reviews.dtos.ReviewDTO;
 import com.delazeri.music.reviews.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,11 @@ public class ReviewController {
 
     @Autowired
     ReviewService service;
+
+    @GetMapping
+    public ResponseEntity<Page<ReviewDTO>> findAll(Pageable pageable) {
+        return ResponseEntity.ok().body(service.findAll(pageable));
+    }
 
     @GetMapping(value = "/by-album/{albumId}")
     public ResponseEntity<List<ReviewDTO>> findReviewsByAlbum(@PathVariable String albumId) {

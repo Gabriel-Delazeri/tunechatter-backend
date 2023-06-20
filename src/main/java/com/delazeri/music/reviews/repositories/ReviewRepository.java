@@ -3,6 +3,8 @@ package com.delazeri.music.reviews.repositories;
 import com.delazeri.music.albums.entities.Album;
 import com.delazeri.music.reviews.entities.Review;
 import com.delazeri.music.users.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
                     " GROUP BY r.id"
     )
     List<Review> findByAlbum(@Param("album") Album album);
+
+    @Query("SELECT new Review (r.id, r.album, r.user, r.comment, r.postedAt, r.rating, COUNT(l.id)) FROM Review r LEFT JOIN r.likes l GROUP BY r.id order by r.postedAt DESC ")
+    Page<Review> findAllReviews(Pageable pageable);
 }

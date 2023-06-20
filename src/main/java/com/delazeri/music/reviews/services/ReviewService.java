@@ -13,6 +13,8 @@ import com.delazeri.music.users.entities.User;
 import com.delazeri.music.users.services.UserService;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -65,5 +67,9 @@ public class ReviewService {
         Album album = albumMapper.dtoToEntity(albumService.findById(UUID.fromString(albumId)));
 
         return ModelMapper.parseListObjects(repository.findByAlbum(album), ReviewDTO.class);
+    }
+
+    public Page<ReviewDTO> findAll(Pageable pageable) {
+        return ModelMapper.parsePage(repository.findAllReviews(pageable), ReviewDTO.class);
     }
 }
