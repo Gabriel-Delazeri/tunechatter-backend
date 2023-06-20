@@ -44,4 +44,17 @@ public class Review implements Serializable {
     private LocalDateTime postedAt;
 
     private double rating;
+
+    @Transient
+    private long likeCount;
+
+    public Review(UUID id, Album album, User user, String comment, LocalDateTime postedAt, double rating, long likeCount) {
+        this.id = id;
+        this.album = album;
+        this.user = user;
+        this.comment = comment;
+        this.postedAt = postedAt;
+        this.rating = rating;
+        this.likeCount = likeCount;
+    }
 }
