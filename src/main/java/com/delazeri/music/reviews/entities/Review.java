@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,9 @@ public class Review implements Serializable {
 
     @OneToMany(mappedBy = "review")
     private List<Like> likes;
+
+    @Column(name = "posted_at")
+    private LocalDateTime postedAt;
 
     private double rating;
 }
