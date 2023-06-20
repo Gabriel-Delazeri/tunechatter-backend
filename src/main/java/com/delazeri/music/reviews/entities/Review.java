@@ -44,8 +44,4 @@ public class Review implements Serializable {
     private LocalDateTime postedAt;
 
     private double rating;
-
-//    public Review () {
-//
-//    }
 }

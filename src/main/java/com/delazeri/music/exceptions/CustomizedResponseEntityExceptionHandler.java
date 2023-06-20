@@ -1,6 +1,7 @@
 package com.delazeri.music.exceptions;
 
 import com.delazeri.music.exceptions.custom.InvalidJwtAuthenticationException;
+import com.delazeri.music.exceptions.custom.UserAlreadyLikedThisReviewException;
 import com.delazeri.music.exceptions.custom.UserAlreadyReviewedThisAlbumException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +58,17 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(UserAlreadyLikedThisReviewException.class)
+    public final ResponseEntity<ExceptionResponse> handleUserAlreadyLikedThisReviewException(
+            Exception ex,
+            WebRequest request
+    ) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
 
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+    }
 }
