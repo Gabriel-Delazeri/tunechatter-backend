@@ -3,7 +3,6 @@ CREATE TABLE reviews (
                          album_id BINARY(16),
                          user_id BINARY(16),
                          comment VARCHAR(255),
-                         likes INT DEFAULT 0,
                          rating float,
                          posted_at TIMESTAMP,
                          FOREIGN KEY (album_id) REFERENCES album (id),

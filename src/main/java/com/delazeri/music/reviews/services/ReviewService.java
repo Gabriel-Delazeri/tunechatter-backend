@@ -66,8 +66,4 @@ public class ReviewService {
 
         return ModelMapper.parseListObjects(repository.findByAlbum(album), ReviewDTO.class);
     }
-
-    public List<ReviewDTO> getPopularReviews() {
-        return ModelMapper.parseListObjects(repository.findTopOrderByLikesAsc(), ReviewDTO.class);
-    }
 }

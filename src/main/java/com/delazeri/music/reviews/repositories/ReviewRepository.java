@@ -16,7 +16,4 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
     @Query("SELECT r FROM Review as r WHERE r.album =:album")
     List<Review> findByAlbum(@Param("album") Album album);
-
-    @Query("SELECT r FROM Review r ORDER BY r.likeCount ASC LIMIT 5")
-    List<Review> findTopOrderByLikesAsc();
 }
