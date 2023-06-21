@@ -2,6 +2,8 @@ package com.delazeri.music.reviews.entities;
 
 import com.delazeri.music.users.entities.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,6 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "likes")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Like implements Serializable {
 
     @Serial
@@ -25,4 +29,9 @@ public class Like implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Like(User user, Review review) {
+        this.user = user;
+        this.review = review;
+    }
 }

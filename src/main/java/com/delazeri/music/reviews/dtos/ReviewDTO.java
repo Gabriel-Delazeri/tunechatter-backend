@@ -25,5 +25,5 @@ public class ReviewDTO implements Serializable {
     private String comment;
     private double rating;
     private LocalDateTime postedAt;
-    private int likeCount;
+    private long likeCount;
 }

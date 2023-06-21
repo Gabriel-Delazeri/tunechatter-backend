@@ -1,5 +1,7 @@
 package com.delazeri.music.utils.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,5 +24,10 @@ public class ModelMapper {
         }
 
         return destinationObjects;
+    }
+
+    public static <OriginClass, DestinationClass> Page<DestinationClass> parsePage(Page<OriginClass> originPage, Class<DestinationClass> destination) {
+        List<DestinationClass> destinationList = parseListObjects(originPage.getContent(), destination);
+        return new PageImpl<>(destinationList, originPage.getPageable(), originPage.getTotalElements());
     }
 }
