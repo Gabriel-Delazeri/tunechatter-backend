@@ -32,4 +32,9 @@ public class AlbumController {
     public ResponseEntity<AlbumDTO> findBySlug(@PathVariable String slug) {
         return ResponseEntity.ok().body(service.findBySlug(slug));
     }
+
+    @GetMapping(value = "/popular")
+    public ResponseEntity<Page<SimpleAlbumDTO>> findAllReviewedAlbumsOrderedByPopularity(Pageable pageable) {
+        return ResponseEntity.ok().body(service.findAllReviewdAlbumsOrderedByPopularity(pageable));
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -43,5 +44,19 @@ public class AlbumService {
 
     public AlbumDTO findBySlug(String slug) {
         return mapper.entityToDto(repository.findBySlug(slug).orElseThrow());
+    }
+
+    public Page<SimpleAlbumDTO> findAllReviewdAlbumsOrderedByPopularity(Pageable pageable) {
+        Page<SimpleAlbumDTO> albums = repository.findAllReviewdAlbumsOrderedByPopularity(pageable, LocalDateTime.now().minusDays(7));
+
+        albums.forEach(
+                albumDTO -> {
+                    Set<Artist> artists = repository.findAlbumArtists(albumDTO.getId());
+
+                    albumDTO.setArtists(new HashSet<>(ModelMapper.parseListObjects(Arrays.asList(artists.toArray()), ArtistDTO.class)));
+                }
+        );
+
+        return albums;
     }
 }
