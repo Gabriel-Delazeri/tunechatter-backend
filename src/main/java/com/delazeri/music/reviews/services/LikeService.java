@@ -1,7 +1,6 @@
 package com.delazeri.music.reviews.services;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.delazeri.music.exceptions.custom.UserAlreadyLikedThisReviewException;
 import com.delazeri.music.exceptions.custom.UserStillNotLikedReviewException;
 import com.delazeri.music.reviews.dtos.ReviewDTO;
 import com.delazeri.music.reviews.entities.Like;
@@ -37,19 +36,25 @@ public class LikeService {
         DecodedJWT decodedToken = jwtUtil.decodedToken(authorizationToken);
 
         User user = userService.findUserByUsername(decodedToken.getSubject());
-        userAlreadyLikedThisReview(user, review);
+
+        if (userAlreadyLikedThisReview(user, review)) {
+            return ModelMapper.parseObject(reviewRepository.findById(reviewId), ReviewDTO.class);
+        }
 
         repository.save(new Like(user, review));
 
-        return ModelMapper.parseObject(review, ReviewDTO.class);
+        return ModelMapper.parseObject(reviewRepository.findById(reviewId), ReviewDTO.class);
     }
 
-    public void userAlreadyLikedThisReview(User user, Review review) {
+    public Boolean userAlreadyLikedThisReview(User user, Review review) {
         Like like = repository.findByUserAndReview(user, review);
 
         if (like != null) {
-            throw new UserAlreadyLikedThisReviewException("You already liked this review");
+            repository.delete(getUserLikeInReview(user, review));
+            return true;
         }
+
+        return false;
     }
 
     public ReviewDTO unlike(String authorizationToken, UUID reviewId) {
