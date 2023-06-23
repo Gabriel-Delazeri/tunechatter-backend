@@ -24,12 +24,17 @@ public class AlbumController {
     }
 
     @GetMapping("by-id/{id}")
-    public ResponseEntity<AlbumDTO> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok().body(service.findById(id));
+    public ResponseEntity<AlbumDTO> findById(@PathVariable UUID id, @RequestHeader("AUTHORIZATION") String authenticationToken) {
+        return ResponseEntity.ok().body(service.findByIdWithUserInformation(id, authenticationToken));
     }
 
     @GetMapping("by-slug/{slug}")
     public ResponseEntity<AlbumDTO> findBySlug(@PathVariable String slug) {
         return ResponseEntity.ok().body(service.findBySlug(slug));
+    }
+
+    @GetMapping(value = "/popular")
+    public ResponseEntity<Page<SimpleAlbumDTO>> findAllReviewedAlbumsOrderedByPopularity(Pageable pageable) {
+        return ResponseEntity.ok().body(service.findAllReviewdAlbumsOrderedByPopularity(pageable));
     }
 }

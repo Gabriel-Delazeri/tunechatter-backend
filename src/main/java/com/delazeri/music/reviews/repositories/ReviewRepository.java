@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
@@ -23,6 +24,15 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
                     " GROUP BY r.id"
     )
     List<Review> findByAlbum(@Param("album") Album album);
+
+    @Override
+    @Query(
+            "SELECT new Review (r.id, r.album, r.user, r.comment, r.postedAt, r.rating, COUNT(l.id)) FROM Review r" +
+                    " LEFT JOIN r.likes l" +
+                    " WHERE r.id =:id " +
+                    " GROUP BY r.id"
+    )
+    Optional<Review> findById(@Param("id") UUID id);
 
     @Query("SELECT new Review (r.id, r.album, r.user, r.comment, r.postedAt, r.rating, COUNT(l.id)) FROM Review r LEFT JOIN r.likes l GROUP BY r.id order by r.postedAt DESC ")
     Page<Review> findAllReviews(Pageable pageable);
