@@ -24,8 +24,8 @@ public class AlbumController {
     }
 
     @GetMapping("by-id/{id}")
-    public ResponseEntity<AlbumDTO> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok().body(service.findById(id));
+    public ResponseEntity<AlbumDTO> findById(@PathVariable UUID id, @RequestHeader("AUTHORIZATION") String authenticationToken) {
+        return ResponseEntity.ok().body(service.findByIdWithUserInformation(id, authenticationToken));
     }
 
     @GetMapping("by-slug/{slug}")

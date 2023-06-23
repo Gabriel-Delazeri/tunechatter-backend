@@ -1,6 +1,7 @@
 package com.delazeri.music.albums.dtos;
 
 import com.delazeri.music.artists.dtos.ArtistDTO;
+import com.delazeri.music.reviews.dtos.ReviewDTO;
 import com.delazeri.music.tracks.dtos.TrackDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -49,4 +50,8 @@ public class AlbumDTO implements Serializable {
     private Set<ArtistDTO> artists;
 
     private Set<TrackDTO> tracks;
+
+    private boolean reviewed;
+
+    private ReviewDTO userReview;
 }
