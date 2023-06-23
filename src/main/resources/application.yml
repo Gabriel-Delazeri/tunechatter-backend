@@ -1,7 +1,9 @@
+cors:
+  originPatterns: http://localhost:3000
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db:3306/tunechatter?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/tunechatter?useTimezone=true&serverTimezone=UTC
     username: root
     password:
   jpa:
@@ -11,25 +13,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
-
 spotify:
   api:
     client:
       id: 772c1fcea85548058c25ec2886d0c698
       secret: 59113bf869104298956ccd247ed390db
     scopes: user-read-private user-read-email
-    redirect-uri: http://localhost:8080/spotify/callback
+    redirect-uri: http://0.0.0.0:8080/spotify/callback
     base-url: https://api.spotify.com/v1
-
-server:
-  port: 8080
-
-spring.webflux.cors:
-  global-cors-configurations:
-      [/**]:
-      allowed-origins: http://localhost:3000
-      allowed-methods: GET, POST
-      allowed-headers: *
-      exposed-headers:
-      allow-credentials: true
-      max-age: 3600
