@@ -3,9 +3,9 @@ cors:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tunechatter?useTimezone=true&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://music-mysql-1:3306/database_name
+    username: username
+    password: password
   jpa:
     hibernate:
       ddl-auto: none
