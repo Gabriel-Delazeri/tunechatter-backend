@@ -8,7 +8,7 @@ import com.delazeri.music.artists.entities.Artist;
 import com.delazeri.music.artists.repositories.ArtistRepository;
 import com.delazeri.music.tracks.entities.Track;
 import com.delazeri.music.tracks.repositories.TrackRepository;
-import com.delazeri.music.utils.ModelMapper;
+import com.delazeri.music.utils.mapper.ModelMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
