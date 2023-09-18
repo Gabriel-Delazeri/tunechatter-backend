@@ -1,8 +1,10 @@
 package com.delazeri.music.services;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delazeri.music.dtos.albums.AlbumDTO;
 import com.delazeri.music.dtos.albums.SimpleAlbumDTO;
 import com.delazeri.music.domain.Album;
+import com.delazeri.music.infra.security.TokenService;
 import com.delazeri.music.repositories.AlbumRepository;
 import com.delazeri.music.utils.mapper.AlbumMapper;
 import com.delazeri.music.dtos.artists.ArtistDTO;
@@ -33,8 +35,8 @@ public class AlbumService {
     @Autowired
     UserRepository userRepository;
 
-//    @Autowired
-//    JwtUtil jwtUtil;
+    @Autowired
+    TokenService tokenService;
 
     @Autowired
     AlbumMapper mapper;
@@ -58,10 +60,8 @@ public class AlbumService {
     }
 
     public AlbumDTO findByIdWithUserInformation(UUID id, String authenticationToken) {
-//        DecodedJWT decodedJWT = jwtUtil.decodedToken(authenticationToken);
-//        User user = userRepository.findByUsername(decodedJWT.getSubject());
-        // todo fix
-        User user = userRepository.findByUsername("decodeJwt");
+        DecodedJWT decodedJWT = tokenService.decodeToken(authenticationToken);
+        User user = userRepository.findByUsername(decodedJWT.getSubject());
 
         Album album = repository.findById(id).orElseThrow();
 

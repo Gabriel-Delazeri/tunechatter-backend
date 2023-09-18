@@ -15,8 +15,17 @@ public class SpotifyApiController {
     @Autowired
     SpotifyAlbumService spotifyApiService;
 
-    @GetMapping("by-album/{albumId}")
-    public ResponseEntity<Album> populateByAlbum(@PathVariable String albumId, @RequestHeader("Authorization") String accessToken) throws JsonProcessingException {
-        return ResponseEntity.ok().body(spotifyApiService.populateDatabaseBySpotifyAlbum(albumId, accessToken));
+    @GetMapping("by-album")
+    public ResponseEntity<String> populateByAlbum(@RequestHeader("SpotifyToken") String accessToken) throws JsonProcessingException {
+        String[] albumsIds = {"35UJLpClj5EDrhpNIi4DFg", "79dL7FLiJFOO0EoehUHQBv", "4rJgzzfFHAVFhCSt2P4I3j", "2nkto6YNI4rUYTLqEwWJ3o",
+              "7GjVWG39IOj4viyWplJV4H", "6mm1Skz3JE6AXneya9Nyiv", "2UJcKiJxNryhL050F5Z1Fk", "4m2880jivSbbyEGAKfITCa", "4mAhdh996uW5SnnFKXUmC0", "6dVIqQ8qmQ5GBnJ9shOYGE", "3gBVdu4a1MMJVMy6vwPEb8",
+                "35UJLpClj5EDrhpNIi4DFg",
+        };
+
+        for (String albumId : albumsIds) {
+            this.spotifyApiService.populateDatabaseBySpotifyAlbum(albumId, accessToken);
+        }
+
+        return ResponseEntity.ok().body("Worked");
     }
 }

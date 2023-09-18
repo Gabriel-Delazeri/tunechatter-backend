@@ -46,7 +46,7 @@ public class SpotifyAlbumService {
 
     private static HttpEntity<String> setHeaders(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", accessToken);
+        headers.set("Authorization", "Bearer " + accessToken);
         return new HttpEntity<>(headers);
     }
 

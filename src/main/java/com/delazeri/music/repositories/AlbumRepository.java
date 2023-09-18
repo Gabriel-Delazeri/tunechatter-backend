@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
-    @Query("SELECT new com.delazeri.music.albums.dtos.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl, a.releaseDate) FROM Album a order by a.name DESC ")
+    @Query("SELECT new com.delazeri.music.dtos.albums.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl, a.releaseDate) FROM Album a order by a.name DESC ")
     Page<SimpleAlbumDTO> findAllAlbums(Pageable pageable);
 
     @Query("SELECT a.artists FROM Album a WHERE a.id = :albumId")
@@ -25,7 +25,7 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     Optional<Album> findBySlug(String slug);
 
-    @Query("SELECT new com.delazeri.music.albums.dtos.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl, a.releaseDate), COUNT(r.id) AS countReviews " +
+    @Query("SELECT new com.delazeri.music.dtos.albums.SimpleAlbumDTO(a.id, a.spotifyId, a.name, a.slug, a.imageUrl, a.releaseDate), COUNT(r.id) AS countReviews " +
             "FROM Album a " +
             "LEFT JOIN Review r ON r.album = a " +
             "WHERE r.postedAt >= :startDate " +
