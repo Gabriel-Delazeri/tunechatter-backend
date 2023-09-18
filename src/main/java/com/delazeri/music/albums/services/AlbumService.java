@@ -11,8 +11,7 @@ import com.delazeri.music.artists.entities.Artist;
 import com.delazeri.music.reviews.dtos.ReviewDTO;
 import com.delazeri.music.reviews.entities.Review;
 import com.delazeri.music.reviews.repositories.ReviewRepository;
-import com.delazeri.music.security.jwt.JwtUtil;
-import com.delazeri.music.users.entities.User;
+import com.delazeri.music.domain.User;
 import com.delazeri.music.users.repositories.UserRepository;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,8 @@ public class AlbumService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    JwtUtil jwtUtil;
+//    @Autowired
+//    JwtUtil jwtUtil;
 
     @Autowired
     AlbumMapper mapper;
@@ -60,8 +59,11 @@ public class AlbumService {
     }
 
     public AlbumDTO findByIdWithUserInformation(UUID id, String authenticationToken) {
-        DecodedJWT decodedJWT = jwtUtil.decodedToken(authenticationToken);
-        User user = userRepository.findByUsername(decodedJWT.getSubject());
+//        DecodedJWT decodedJWT = jwtUtil.decodedToken(authenticationToken);
+//        User user = userRepository.findByUsername(decodedJWT.getSubject());
+        // todo fix
+        User user = userRepository.findByUsername("decodeJwt");
+
         Album album = repository.findById(id).orElseThrow();
 
         AlbumDTO albumDTO = mapper.entityToDto(album            );

@@ -2,7 +2,7 @@ package com.delazeri.music.reviews.repositories;
 
 import com.delazeri.music.reviews.entities.Like;
 import com.delazeri.music.reviews.entities.Review;
-import com.delazeri.music.users.entities.User;
+import com.delazeri.music.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

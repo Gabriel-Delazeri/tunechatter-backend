@@ -8,9 +8,8 @@ import com.delazeri.music.exceptions.custom.UserAlreadyReviewedThisAlbumExceptio
 import com.delazeri.music.reviews.dtos.ReviewDTO;
 import com.delazeri.music.reviews.entities.Review;
 import com.delazeri.music.reviews.repositories.ReviewRepository;
-import com.delazeri.music.security.jwt.JwtUtil;
-import com.delazeri.music.users.entities.User;
-import com.delazeri.music.users.services.UserService;
+//import com.delazeri.music.security.jwt.JwtUtil;
+import com.delazeri.music.domain.User;
 import com.delazeri.music.utils.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,14 +23,14 @@ import java.util.UUID;
 @Service
 public class ReviewService {
 
-    @Autowired
-    UserService userService;
+//    @Autowired
+//    UserService userService;
 
     @Autowired
     AlbumService albumService;
 
-    @Autowired
-    JwtUtil jwtUtil;
+//    @Autowired
+//    JwtUtil jwtUtil;
 
     @Autowired
     AlbumMapper albumMapper;
@@ -40,9 +39,11 @@ public class ReviewService {
     ReviewRepository repository;
 
     public ReviewDTO postReview(ReviewDTO reviewDTO, String token) {
-        DecodedJWT decodedToken = jwtUtil.decodedToken(token);
+//        DecodedJWT decodedToken = jwtUtil.decodedToken(token);
 
-        User user = userService.findUserByUsername(decodedToken.getSubject());
+//        User user = userService.findUserByUsername(decodedToken.getSubject());
+        // todo fix
+        User user = new User();
         Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.getAlbum().getId()));
 
         userAlreadyReviewedThisAlbum(album, user);

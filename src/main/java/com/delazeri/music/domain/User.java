@@ -1,6 +1,5 @@
-package com.delazeri.music.users.entities;
+package com.delazeri.music.domain;
 
-import com.delazeri.music.security.entities.Permission;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,20 +31,20 @@ public class User implements UserDetails{
     @Column
     private String imageUrl;
     @Column(name = "account_non_expired")
-    private Boolean accountNonExpired;
+    private Boolean accountNonExpired = true;
     @Column(name = "account_non_locked")
-    private Boolean accountNonLocked;
+    private Boolean accountNonLocked = true;
     @Column(name = "credentials_non_expired")
-    private Boolean credentialsNonExpired;
+    private Boolean credentialsNonExpired = true;
     @Column
-    private Boolean enabled;
+    private Boolean enabled = true;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_permission",
             joinColumns = {@JoinColumn(name = "id_user")},
             inverseJoinColumns = {@JoinColumn(name = "id_permission")}
     )
-    private List<Permission> permissions;
+    private List<Permission> permissions = new ArrayList<>();
 
     public List<String> getRoles() {
         List<String> roles = new ArrayList<>();

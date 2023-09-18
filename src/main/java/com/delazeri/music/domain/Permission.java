@@ -1,6 +1,9 @@
-package com.delazeri.music.security.entities;
+package com.delazeri.music.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serial;
@@ -10,6 +13,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "permission")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Permission implements GrantedAuthority, Serializable {
 
     @Serial
@@ -17,29 +23,10 @@ public class Permission implements GrantedAuthority, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column
     private String description;
-
-    public Permission() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public boolean equals(Object o) {

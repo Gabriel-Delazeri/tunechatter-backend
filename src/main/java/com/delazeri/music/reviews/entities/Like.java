@@ -1,6 +1,6 @@
 package com.delazeri.music.reviews.entities;
 
-import com.delazeri.music.users.entities.User;
+import com.delazeri.music.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

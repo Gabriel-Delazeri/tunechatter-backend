@@ -1,0 +1,62 @@
+package com.delazeri.music.services;
+
+import com.delazeri.music.domain.Permission;
+import com.delazeri.music.domain.User;
+import com.delazeri.music.dtos.AuthenticationDto;
+import com.delazeri.music.dtos.LoginResponseDto;
+import com.delazeri.music.dtos.RegisterUserRequest;
+import com.delazeri.music.infra.security.TokenService;
+import com.delazeri.music.repositories.PermissionRepository;
+import com.delazeri.music.users.repositories.UserRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+    @Autowired
+    UserRepository repository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private PermissionRepository permissionRepository;
+
+    @Transactional
+    public User registerUser(RegisterUserRequest userData) throws Exception {
+        if (this.repository.findByUsername(userData.username()) != null) {
+            System.out.println("here");
+            throw new Exception("Login already in use");
+        }
+
+        User user = new User();
+        user.setUsername(userData.username());
+        user.setEmail(userData.email());
+        user.setFirstName(userData.firstName());
+        user.setLastName(userData.lastName());
+        user.setPassword(new BCryptPasswordEncoder().encode(userData.password()));
+        user.getPermissions().add(permissionRepository.findById(1L).orElseThrow());
+
+        System.out.println(user);
+
+        return this.repository.save(user);
+    }
+
+    public LoginResponseDto loginUser(AuthenticationDto authenticationData) {
+        UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(
+                authenticationData.username(),
+                authenticationData.password()
+        );
+
+        Authentication auth = this.authenticationManager.authenticate(usernamePassword);
+
+        String token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return new LoginResponseDto(token);
+    }
+}
