@@ -1,9 +1,9 @@
 package com.delazeri.music.controllers;
 
 import com.delazeri.music.domain.User;
-import com.delazeri.music.dtos.AuthenticationDto;
-import com.delazeri.music.dtos.LoginResponseDto;
-import com.delazeri.music.dtos.RegisterUserRequest;
+import com.delazeri.music.dtos.auth.AuthenticationDto;
+import com.delazeri.music.dtos.auth.LoginResponseDto;
+import com.delazeri.music.dtos.auth.RegisterUserRequest;
 import com.delazeri.music.services.AuthService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

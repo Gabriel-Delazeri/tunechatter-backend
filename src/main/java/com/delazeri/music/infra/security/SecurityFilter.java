@@ -1,6 +1,6 @@
 package com.delazeri.music.infra.security;
 
-import com.delazeri.music.users.repositories.UserRepository;
+import com.delazeri.music.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

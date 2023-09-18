@@ -1,13 +1,12 @@
 package com.delazeri.music.services;
 
-import com.delazeri.music.domain.Permission;
 import com.delazeri.music.domain.User;
-import com.delazeri.music.dtos.AuthenticationDto;
-import com.delazeri.music.dtos.LoginResponseDto;
-import com.delazeri.music.dtos.RegisterUserRequest;
+import com.delazeri.music.dtos.auth.AuthenticationDto;
+import com.delazeri.music.dtos.auth.LoginResponseDto;
+import com.delazeri.music.dtos.auth.RegisterUserRequest;
 import com.delazeri.music.infra.security.TokenService;
 import com.delazeri.music.repositories.PermissionRepository;
-import com.delazeri.music.users.repositories.UserRepository;
+import com.delazeri.music.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
