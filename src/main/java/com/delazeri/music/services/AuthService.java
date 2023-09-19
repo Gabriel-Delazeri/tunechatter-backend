@@ -1,7 +1,6 @@
 package com.delazeri.music.services;
 
 import com.delazeri.music.domain.User;
-import com.delazeri.music.dtos.Response;
 import com.delazeri.music.dtos.auth.AuthenticationDto;
 import com.delazeri.music.dtos.auth.LoginResponseDto;
 import com.delazeri.music.dtos.auth.RegisterUserRequest;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 
 @Service
 public class AuthService {
@@ -52,7 +50,7 @@ public class AuthService {
         return this.repository.save(user);
     }
 
-    public Response<LoginResponseDto> loginUser(AuthenticationDto authenticationData) {
+    public LoginResponseDto loginUser(AuthenticationDto authenticationData) {
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(
                 authenticationData.username(),
                 authenticationData.password()
@@ -64,12 +62,9 @@ public class AuthService {
 
         String token = tokenService.generateToken((User) auth.getPrincipal(), expirationDate);
 
-        return new Response<>(
-                true,
-                new LoginResponseDto(
-                        token,
-                        LocalDateTime.ofInstant(expirationDate, ZoneId.of("America/Sao_Paulo"))
-                )
+        return new LoginResponseDto(
+                token,
+                LocalDateTime.ofInstant(expirationDate, ZoneId.of("America/Sao_Paulo"))
         );
     }
 }

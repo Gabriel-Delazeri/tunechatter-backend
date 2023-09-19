@@ -1,7 +1,6 @@
 package com.delazeri.music.controllers;
 
 import com.delazeri.music.domain.User;
-import com.delazeri.music.dtos.Response;
 import com.delazeri.music.dtos.auth.AuthenticationDto;
 import com.delazeri.music.dtos.auth.LoginResponseDto;
 import com.delazeri.music.dtos.auth.RegisterUserRequest;
@@ -23,7 +22,7 @@ public class AuthController {
     private AuthService service;
 
     @PostMapping("/login")
-    public ResponseEntity<Response<LoginResponseDto>> login(@RequestBody @Valid AuthenticationDto authenticationData){
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AuthenticationDto authenticationData){
         return new ResponseEntity<>(this.service.loginUser(authenticationData), HttpStatus.OK);
     }
 
