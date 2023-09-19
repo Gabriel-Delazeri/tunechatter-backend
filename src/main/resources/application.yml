@@ -1,5 +1,5 @@
 cors:
-  originPatterns: http://localhost:4200
+  originPatterns: http://localhost:4200,http://localhost:3000
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
