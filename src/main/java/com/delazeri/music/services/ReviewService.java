@@ -2,6 +2,7 @@ package com.delazeri.music.services;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.delazeri.music.domain.Album;
+import com.delazeri.music.dtos.albums.ReviewRequestDto;
 import com.delazeri.music.infra.security.TokenService;
 import com.delazeri.music.utils.mapper.AlbumMapper;
 import com.delazeri.music.infra.exceptions.custom.UserAlreadyReviewedThisAlbumException;
@@ -37,11 +38,11 @@ public class ReviewService {
     @Autowired
     ReviewRepository repository;
 
-    public ReviewDTO postReview(ReviewDTO reviewDTO, String token) {
+    public ReviewDTO postReview(ReviewRequestDto reviewDTO, String token) {
         DecodedJWT decodedToken = tokenService.decodeToken(token);
 
         User user = userService.getUserByUsername(decodedToken.getSubject());
-        Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.getAlbum().getId()));
+        Album album = albumMapper.dtoToEntity(albumService.findById(reviewDTO.albumId()));
 
         userAlreadyReviewedThisAlbum(album, user);
 

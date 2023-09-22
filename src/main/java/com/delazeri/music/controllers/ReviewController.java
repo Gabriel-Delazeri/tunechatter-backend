@@ -1,5 +1,6 @@
 package com.delazeri.music.controllers;
 
+import com.delazeri.music.dtos.albums.ReviewRequestDto;
 import com.delazeri.music.dtos.reviews.ReviewDTO;
 import com.delazeri.music.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewDTO> postReview(@RequestBody ReviewDTO review, @RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<ReviewDTO> postReview(@RequestBody ReviewRequestDto review, @RequestHeader(value = "Authorization") String token) {
         return ResponseEntity.ok().body(service.postReview(review, token));
     }
 }
