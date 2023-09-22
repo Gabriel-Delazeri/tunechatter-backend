@@ -49,7 +49,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .build()
-                    .verify(token);
+                    .verify(token.replace("Bearer ", ""));
         } catch (JWTVerificationException exception) {
             throw new RuntimeException("Error while decoding token", exception);
         }
