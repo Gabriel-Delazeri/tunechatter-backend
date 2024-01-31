@@ -46,7 +46,9 @@ public class ReviewService {
 
         userAlreadyReviewedThisAlbum(album, user);
 
-        Review review = ModelMapper.parseObject(reviewDTO, Review.class);
+        Review review = new Review();
+        review.setRating(reviewDTO.rating());
+        review.setComment(reviewDTO.comment());
         review.setAlbum(album);
         review.setUser(user);
         review.setPostedAt(LocalDateTime.now());

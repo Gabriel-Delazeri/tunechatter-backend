@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/api/reviews")
 public class ReviewController {
 
@@ -30,6 +31,7 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<ReviewDTO> postReview(@RequestBody ReviewRequestDto review, @RequestHeader(value = "Authorization") String token) {
+        System.out.println(review);
         return ResponseEntity.ok().body(service.postReview(review, token));
     }
 }

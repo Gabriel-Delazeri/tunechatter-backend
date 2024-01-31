@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@CrossOrigin(value = "**")
 @RestController
+@CrossOrigin(value = "*")
 @RequestMapping("/api/albums")
 public class AlbumController {
 
@@ -21,6 +21,7 @@ public class AlbumController {
 
     @GetMapping
     public ResponseEntity<Page<SimpleAlbumDTO>> findAll(Pageable page) {
+        System.out.println("123");
         return ResponseEntity.ok().body(service.findAll(page));
     }
 
